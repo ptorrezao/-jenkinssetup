@@ -6,12 +6,16 @@ services:
             - '8080:8080'
             - '50000:50000'
         image: ptorrezao/jenkins
+        build:
+            context: ./master
         volumes:
             - type: volume
               source: jenkins_home
               target: /var/jenkins_home
     jenkins-slave:
-        container_name: jenkins-dockerslave
+        container_name: jenkins-slave
+        build:
+            context: ./slave
         restart: always
         environment:
             - 'JENKINS_URL=http://jenkins:8080'
